@@ -207,6 +207,8 @@ class ContainerView: UIView {
         addSubview(temperatureLabel)
         addSubview(complexStackView)
         
+        //добавить directionalLayoutMargins = NSDirectionalEdgeInsets(top: 8.0, leading: 8.0, bottom: 8.0, trailing: 8.0) внутри containerView
+        
         NSLayoutConstraint.activate([
             locationLabel.topAnchor.constraint(equalTo: layoutMarginsGuide.topAnchor),
             locationLabel.leadingAnchor.constraint(equalTo: layoutMarginsGuide.leadingAnchor),
