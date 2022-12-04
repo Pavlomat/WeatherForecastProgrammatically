@@ -9,13 +9,13 @@ import UIKit
 
 class CurrentTemperatureViewCell: UICollectionViewCell {
     
-    private let conditionsImage: UIImageView = {
-        let view = UIImageView()
-        view.image = UIImage(systemName: "drop")
-        view.contentMode = .scaleAspectFit
-        view.translatesAutoresizingMaskIntoConstraints = false
-        return view
-    }()
+//    private let conditionsImage: UIImageView = {
+//        let view = UIImageView()
+//        view.image = UIImage(systemName: "drop")
+//        view.contentMode = .scaleAspectFit
+//        view.translatesAutoresizingMaskIntoConstraints = false
+//        return view
+//    }()
     
     override init(frame: CGRect) {
         super.init(frame: .zero)
@@ -27,13 +27,13 @@ class CurrentTemperatureViewCell: UICollectionViewCell {
     }
     
     private func setupView() {
-        addSubview(conditionsImage)
-        
-        NSLayoutConstraint.activate([
-            conditionsImage.topAnchor.constraint(equalTo: layoutMarginsGuide.topAnchor),
-            conditionsImage.leadingAnchor.constraint(equalTo: layoutMarginsGuide.leadingAnchor),
-            conditionsImage.bottomAnchor.constraint(equalTo: layoutMarginsGuide.bottomAnchor),
-            conditionsImage.trailingAnchor.constraint(equalTo: layoutMarginsGuide.trailingAnchor)
-        ])
+//        addSubview(conditionsImage)
+//        
+//        NSLayoutConstraint.activate([
+//            conditionsImage.topAnchor.constraint(equalTo: layoutMarginsGuide.topAnchor),
+//            conditionsImage.leadingAnchor.constraint(equalTo: layoutMarginsGuide.leadingAnchor),
+//            conditionsImage.bottomAnchor.constraint(equalTo: layoutMarginsGuide.bottomAnchor),
+//            conditionsImage.trailingAnchor.constraint(equalTo: layoutMarginsGuide.trailingAnchor)
+//        ])
     }
 }
