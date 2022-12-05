@@ -67,7 +67,10 @@ class ForecastCollectionViewCell: UICollectionViewCell, UICollectionViewDelegate
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "Cell", for: indexPath) as? ForecastInternalCell else { fatalError() }
-        cell.backgroundColor = .purple
+        cell.backgroundColor = UIColor(red: 0.731, green: 0.937, blue: 0.999, alpha: 1)
+        cell.layer.borderWidth = 2
+        cell.layer.borderColor = UIColor(red: 1, green: 1, blue: 1, alpha: 0.3).cgColor
+        cell.layer.cornerRadius = 15
         return cell
     }
     

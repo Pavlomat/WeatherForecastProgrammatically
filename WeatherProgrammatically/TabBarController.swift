@@ -11,9 +11,10 @@ class TabBarController: UITabBarController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = .systemBackground
-           UITabBar.appearance().barTintColor = .systemBackground
-           tabBar.tintColor = .label
+        view.backgroundColor = .white
+        UITabBar.appearance().barTintColor = .white
+        UITabBar.appearance().isTranslucent = false
+        tabBar.tintColor = .cyan
            setupVCs()
     }
     
@@ -22,16 +23,13 @@ class TabBarController: UITabBarController {
         navController.tabBarItem.title = title
         navController.tabBarItem.image = image
         navController.isNavigationBarHidden = true
-//        navController.navigationBar.prefersLargeTitles = false
-        navController.navigationBar.isTranslucent = false
-//        rootViewController.navigationItem.title = title
         return navController
     }
     
     func setupVCs() {
         viewControllers = [
-            createNavController(for: CurrentTemperatureController(), title: NSLocalizedString("First", comment: ""), image: UIImage(systemName: "1.circle")!),
-            createNavController(for: ForecastViewController(), title: NSLocalizedString("Second", comment: ""), image: UIImage(systemName: "2.circle")!)
+            createNavController(for: CurrentTemperatureController(), title: NSLocalizedString("Today", comment: ""), image: UIImage(systemName: "calendar.badge.exclamationmark")!),
+            createNavController(for: ForecastViewController(), title: NSLocalizedString("Tomorrow", comment: ""), image: UIImage(systemName: "calendar")!)
         ]
     }
 }

@@ -1,5 +1,5 @@
 //
-//  ViewController1.swift
+//  CurrentTemperatureController.swift
 //  WeatherProgrammatically
 //
 //  Created by Pavlov Matvey on 04.12.2022.
@@ -12,7 +12,7 @@ class CurrentTemperatureController: UIViewController, UICollectionViewDelegate, 
     private let containerView: ContainerView = {
         let view = ContainerView()
         view.translatesAutoresizingMaskIntoConstraints = false
-        view.backgroundColor = .white
+        view.backgroundColor = UIColor(red: 0.824, green: 0.960, blue: 0.998, alpha: 1)
         return view
     }()
     
@@ -34,6 +34,7 @@ class CurrentTemperatureController: UIViewController, UICollectionViewDelegate, 
         layout.sectionInset = UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)
         let view = UICollectionView(frame: .zero, collectionViewLayout: layout)
         view.translatesAutoresizingMaskIntoConstraints = false
+        view.backgroundColor = UIColor(red: 1, green: 1, blue: 1, alpha: 0)
         view.register(CurrentTemperatureViewCell.self, forCellWithReuseIdentifier: "Cell")
         return view
     }()
@@ -43,6 +44,7 @@ class CurrentTemperatureController: UIViewController, UICollectionViewDelegate, 
         button.backgroundColor = .yellow
         button.setTitle("Current Location", for: .normal)
         button.setTitleColor(.black, for: .normal)
+        button.backgroundColor = UIColor(red: 0.824, green: 0.960, blue: 0.998, alpha: 1)
         button.titleLabel?.font = UIFont.preferredFont(forTextStyle: .body)
         button.addTarget(self, action: #selector(currentLocationButtonTapped), for: .touchUpInside)
         return button
@@ -53,6 +55,7 @@ class CurrentTemperatureController: UIViewController, UICollectionViewDelegate, 
         button.backgroundColor = .yellow
         button.setTitle("Refresh Forecast", for: .normal)
         button.setTitleColor(.black, for: .normal)
+        button.backgroundColor = UIColor(red: 0.824, green: 0.960, blue: 0.998, alpha: 1)
         button.titleLabel?.font = UIFont.preferredFont(forTextStyle: .body)
         button.addTarget(self, action: #selector(refreshForecastButtonTapped), for: .touchUpInside)
         return button
@@ -63,6 +66,7 @@ class CurrentTemperatureController: UIViewController, UICollectionViewDelegate, 
         button.backgroundColor = .yellow
         button.setTitle("Add City", for: .normal)
         button.setTitleColor(.black, for: .normal)
+        button.backgroundColor = UIColor(red: 0.824, green: 0.960, blue: 0.998, alpha: 1)
         button.titleLabel?.font = UIFont.preferredFont(forTextStyle: .body)
         button.addTarget(self, action: #selector(addCityButtonTapped), for: .touchUpInside)
         return button
@@ -81,7 +85,7 @@ class CurrentTemperatureController: UIViewController, UICollectionViewDelegate, 
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        view.backgroundColor = .green
+        view.backgroundColor = UIColor(red: 0.731, green: 0.937, blue: 0.999, alpha: 1)
         
         setupView()
         
@@ -118,10 +122,18 @@ class CurrentTemperatureController: UIViewController, UICollectionViewDelegate, 
             buttonStackView.bottomAnchor.constraint(equalTo: margins.bottomAnchor),
             buttonStackView.trailingAnchor.constraint(equalTo: margins.trailingAnchor)
         ])
+        
+        let outletsArray = [containerView, refreshForecastButton, addCityButton, addCityButton, currecntLocationButton]
+        
+        for i in outletsArray {
+            i.layer.borderWidth = 2
+            i.layer.borderColor = UIColor(red: 1, green: 1, blue: 1, alpha: 0.3).cgColor
+            i.layer.cornerRadius = 15
+        }
     }
     
     @objc private func currentLocationButtonTapped() {
-        
+        containerView.locationLabel.text = "San Francisco"
     }
     
     @objc private func refreshForecastButtonTapped() {
@@ -138,7 +150,10 @@ class CurrentTemperatureController: UIViewController, UICollectionViewDelegate, 
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "Cell", for: indexPath) as? CurrentTemperatureViewCell else { fatalError() }
-        cell.backgroundColor = .blue
+        cell.backgroundColor = UIColor(red: 0.824, green: 0.960, blue: 0.998, alpha: 1)
+        cell.layer.borderWidth = 2
+        cell.layer.borderColor = UIColor(red: 1, green: 1, blue: 1, alpha: 0.3).cgColor
+        cell.layer.cornerRadius = 15
         return cell
     }
     

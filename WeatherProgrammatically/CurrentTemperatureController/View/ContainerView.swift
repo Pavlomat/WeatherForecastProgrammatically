@@ -1,5 +1,5 @@
 //
-//  GeneralView.swift
+//  ContainerView.swift
 //  WeatherProgrammatically
 //
 //  Created by Pavlov Matvey on 04.12.2022.
@@ -9,7 +9,7 @@ import UIKit
 
 class ContainerView: UIView {
 
-    private let locationLabel: UILabel = {
+    let locationLabel: UILabel = {
         let label = UILabel()
         label.text = "Moscow, RU"
         label.font = UIFont.preferredFont(forTextStyle: .title2)
@@ -21,7 +21,7 @@ class ContainerView: UIView {
         return label
     }()
 
-    private let dateLabel: UILabel = {
+    let dateLabel: UILabel = {
         let label = UILabel()
         label.text = "24 авг 2022"
         label.font = UIFont.preferredFont(forTextStyle: .caption2)
@@ -33,31 +33,30 @@ class ContainerView: UIView {
         return label
     }()
     
-    private let temperatureLabel: UILabel = {
+    let temperatureLabel: UILabel = {
         let label = UILabel()
         label.text = "15º"
         label.font = UIFont.preferredFont(forTextStyle: .title1)
         label.adjustsFontForContentSizeCategory = true
         label.numberOfLines = 1
         label.textColor = .black
-        label.textAlignment = .right
+        label.textAlignment = .center
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.backgroundColor = .brown
+        label.setContentHuggingPriority(.defaultLow-1, for: .vertical)
         return label
     }()
     
-    private let conditionsImage: UIImageView = {
+    let conditionsImage: UIImageView = {
         let view = UIImageView()
         view.image = UIImage(systemName: "drop")
         view.contentMode = .scaleAspectFit
         view.translatesAutoresizingMaskIntoConstraints = false
         view.setContentHuggingPriority(.defaultLow-1, for: .vertical)
         view.setContentHuggingPriority(.defaultLow-1, for: .horizontal)
-        view.backgroundColor = .green
         return view
     }()
     
-    private let conditionsLabel: UILabel = {
+    let conditionsLabel: UILabel = {
         let label = UILabel()
         label.text = "Clouds"
         label.font = UIFont.preferredFont(forTextStyle: .caption2)
@@ -99,11 +98,10 @@ class ContainerView: UIView {
         stackView.distribution = .fillEqually
         stackView.alignment = .fill
         stackView.axis = .horizontal
-        stackView.backgroundColor = .yellow
         return stackView
     }()
     
-    private let percievedTempLabel: UILabel = {
+    let percievedTempLabel: UILabel = {
         let label = UILabel()
         label.text = "15º"
         label.font = UIFont.preferredFont(forTextStyle: .caption2)
@@ -114,7 +112,7 @@ class ContainerView: UIView {
         return label
     }()
     
-    private let speedLabel: UILabel = {
+    let speedLabel: UILabel = {
         let label = UILabel()
         label.text = "4 km/h"
         label.font = UIFont.preferredFont(forTextStyle: .caption2)
@@ -125,7 +123,7 @@ class ContainerView: UIView {
         return label
     }()
     
-    private let hymidityLabel: UILabel = {
+    let hymidityLabel: UILabel = {
         let label = UILabel()
         label.text = "86 %"
         label.font = UIFont.preferredFont(forTextStyle: .caption2)
@@ -142,7 +140,6 @@ class ContainerView: UIView {
         stackView.distribution = .fillEqually
         stackView.alignment = .fill
         stackView.axis = .horizontal
-        stackView.backgroundColor = .green
         return stackView
     }()
     
@@ -152,7 +149,7 @@ class ContainerView: UIView {
         label.font = UIFont.preferredFont(forTextStyle: .caption2)
         label.adjustsFontForContentSizeCategory = true
         label.numberOfLines = 1
-        label.textColor = .black
+        label.textColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0.5)
         label.textAlignment = .center
         return label
     }()
@@ -163,7 +160,7 @@ class ContainerView: UIView {
         label.font = UIFont.preferredFont(forTextStyle: .caption2)
         label.adjustsFontForContentSizeCategory = true
         label.numberOfLines = 1
-        label.textColor = .black
+        label.textColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0.5)
         label.textAlignment = .center
         return label
     }()
@@ -174,7 +171,7 @@ class ContainerView: UIView {
         label.font = UIFont.preferredFont(forTextStyle: .caption2)
         label.adjustsFontForContentSizeCategory = true
         label.numberOfLines = 1
-        label.textColor = .black
+        label.textColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0.5)
         label.textAlignment = .center
         return label
     }()
@@ -185,7 +182,6 @@ class ContainerView: UIView {
         stackView.distribution = .fillEqually
         stackView.alignment = .fill
         stackView.axis = .horizontal
-        stackView.backgroundColor = .red
         return stackView
     }()
     
@@ -196,7 +192,6 @@ class ContainerView: UIView {
         stackView.alignment = .fill
         stackView.axis = .vertical
         stackView.translatesAutoresizingMaskIntoConstraints = false
-        stackView.backgroundColor = .brown
         return stackView
     }()
     
@@ -241,6 +236,7 @@ class ContainerView: UIView {
             conditionsLabel.trailingAnchor.constraint(equalTo: conditionsImage.trailingAnchor),
             
             temperatureLabel.topAnchor.constraint(equalTo: locationLabel.bottomAnchor),
+            temperatureLabel.bottomAnchor.constraint(equalTo: conditionsImage.bottomAnchor),
             temperatureLabel.trailingAnchor.constraint(equalTo: layoutMarginsGuide.trailingAnchor),
             
             complexStackView.topAnchor.constraint(equalTo: conditionsLabel.bottomAnchor),

@@ -1,5 +1,5 @@
 //
-//  ViewController2.swift
+//  ForecastViewController.swift
 //  WeatherProgrammatically
 //
 //  Created by Pavlov Matvey on 04.12.2022.
@@ -14,6 +14,7 @@ class ForecastViewController: UIViewController, UICollectionViewDelegate, UIColl
         layout.scrollDirection = .vertical
         layout.sectionInset = UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)
         let view = UICollectionView(frame: .zero, collectionViewLayout: layout)
+        view.backgroundColor = UIColor(red: 0.731, green: 0.937, blue: 0.999, alpha: 1)
         view.translatesAutoresizingMaskIntoConstraints = false
         view.register(ForecastCollectionViewCell.self, forCellWithReuseIdentifier: "Cell")
         return view
@@ -22,7 +23,6 @@ class ForecastViewController: UIViewController, UICollectionViewDelegate, UIColl
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        view.backgroundColor = .red
         setupView()
         
         collectionView.register(ForecastCollectionViewCell.self, forCellWithReuseIdentifier: "Cell")
@@ -47,11 +47,14 @@ class ForecastViewController: UIViewController, UICollectionViewDelegate, UIColl
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "Cell", for: indexPath) as? ForecastCollectionViewCell else { fatalError() }
-        cell.backgroundColor = .blue
+        cell.backgroundColor = UIColor(red: 0.824, green: 0.960, blue: 0.998, alpha: 1)
+        cell.layer.borderWidth = 2
+        cell.layer.borderColor = UIColor(red: 1, green: 1, blue: 1, alpha: 0.3).cgColor
+        cell.layer.cornerRadius = 15
         return cell
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return CGSize(width: collectionView.frame.width-20, height: collectionView.frame.height/3)
+        return CGSize(width: collectionView.frame.width-20, height: collectionView.frame.height/4)
     }
 }
