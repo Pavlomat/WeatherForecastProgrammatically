@@ -11,8 +11,8 @@ class ContainerView: UIView {
 
     private let locationLabel: UILabel = {
         let label = UILabel()
-//        label.text = ""
-        label.font = UIFont.preferredFont(forTextStyle: .headline)
+        label.text = "Moscow, RU"
+        label.font = UIFont.preferredFont(forTextStyle: .title2)
         label.adjustsFontForContentSizeCategory = true
         label.numberOfLines = 1
         label.textColor = .black
@@ -23,7 +23,7 @@ class ContainerView: UIView {
 
     private let dateLabel: UILabel = {
         let label = UILabel()
-//        label.text = ""
+        label.text = "24 авг 2022"
         label.font = UIFont.preferredFont(forTextStyle: .caption2)
         label.adjustsFontForContentSizeCategory = true
         label.numberOfLines = 1
@@ -35,13 +35,14 @@ class ContainerView: UIView {
     
     private let temperatureLabel: UILabel = {
         let label = UILabel()
-//        label.text = ""
-        label.font = UIFont.preferredFont(forTextStyle: .headline)
+        label.text = "15º"
+        label.font = UIFont.preferredFont(forTextStyle: .title1)
         label.adjustsFontForContentSizeCategory = true
         label.numberOfLines = 1
         label.textColor = .black
-        label.textAlignment = .center
+        label.textAlignment = .right
         label.translatesAutoresizingMaskIntoConstraints = false
+        label.backgroundColor = .brown
         return label
     }()
     
@@ -50,12 +51,15 @@ class ContainerView: UIView {
         view.image = UIImage(systemName: "drop")
         view.contentMode = .scaleAspectFit
         view.translatesAutoresizingMaskIntoConstraints = false
+        view.setContentHuggingPriority(.defaultLow-1, for: .vertical)
+        view.setContentHuggingPriority(.defaultLow-1, for: .horizontal)
+        view.backgroundColor = .green
         return view
     }()
     
     private let conditionsLabel: UILabel = {
         let label = UILabel()
-//        label.text = ""
+        label.text = "Clouds"
         label.font = UIFont.preferredFont(forTextStyle: .caption2)
         label.adjustsFontForContentSizeCategory = true
         label.numberOfLines = 1
@@ -69,6 +73,7 @@ class ContainerView: UIView {
         let view = UIImageView()
         view.image = UIImage(systemName: "thermometer")
         view.contentMode = .scaleAspectFit
+        view.tintColor = .black
         return view
     }()
     
@@ -76,6 +81,7 @@ class ContainerView: UIView {
         let view = UIImageView()
         view.image = UIImage(systemName: "wind")
         view.contentMode = .scaleAspectFit
+        view.tintColor = .black
         return view
     }()
     
@@ -83,6 +89,7 @@ class ContainerView: UIView {
         let view = UIImageView()
         view.image = UIImage(systemName: "drop")
         view.contentMode = .scaleAspectFit
+        view.tintColor = .black
         return view
     }()
     
@@ -90,14 +97,15 @@ class ContainerView: UIView {
         let stackView = UIStackView(arrangedSubviews: [thermometerImage, windImage, humidityImage])
         stackView.spacing = UIStackView.spacingUseSystem
         stackView.distribution = .fillEqually
-        stackView.alignment = .center
+        stackView.alignment = .fill
         stackView.axis = .horizontal
+        stackView.backgroundColor = .yellow
         return stackView
     }()
     
     private let percievedTempLabel: UILabel = {
         let label = UILabel()
-//        label.text = ""
+        label.text = "15º"
         label.font = UIFont.preferredFont(forTextStyle: .caption2)
         label.adjustsFontForContentSizeCategory = true
         label.numberOfLines = 1
@@ -108,7 +116,7 @@ class ContainerView: UIView {
     
     private let speedLabel: UILabel = {
         let label = UILabel()
-//        label.text = ""
+        label.text = "4 km/h"
         label.font = UIFont.preferredFont(forTextStyle: .caption2)
         label.adjustsFontForContentSizeCategory = true
         label.numberOfLines = 0
@@ -119,7 +127,7 @@ class ContainerView: UIView {
     
     private let hymidityLabel: UILabel = {
         let label = UILabel()
-//        label.text = ""
+        label.text = "86 %"
         label.font = UIFont.preferredFont(forTextStyle: .caption2)
         label.adjustsFontForContentSizeCategory = true
         label.numberOfLines = 0
@@ -132,8 +140,9 @@ class ContainerView: UIView {
         let stackView = UIStackView(arrangedSubviews: [percievedTempLabel, speedLabel, hymidityLabel])
         stackView.spacing = UIStackView.spacingUseSystem
         stackView.distribution = .fillEqually
-        stackView.alignment = .center
+        stackView.alignment = .fill
         stackView.axis = .horizontal
+        stackView.backgroundColor = .green
         return stackView
     }()
     
@@ -174,18 +183,20 @@ class ContainerView: UIView {
         let stackView = UIStackView(arrangedSubviews: [percTempLabel, windLabel, hymLabel])
         stackView.spacing = UIStackView.spacingUseSystem
         stackView.distribution = .fillEqually
-        stackView.alignment = .center
+        stackView.alignment = .fill
         stackView.axis = .horizontal
+        stackView.backgroundColor = .red
         return stackView
     }()
     
     private lazy var complexStackView: UIStackView = {
         let stackView = UIStackView(arrangedSubviews: [iconStackView, indicatorStackView, exampleStackView])
         stackView.spacing = UIStackView.spacingUseSystem
-        stackView.distribution = .fill
-        stackView.alignment = .center
+        stackView.distribution = .fillEqually
+        stackView.alignment = .fill
         stackView.axis = .vertical
         stackView.translatesAutoresizingMaskIntoConstraints = false
+        stackView.backgroundColor = .brown
         return stackView
     }()
     
@@ -207,6 +218,9 @@ class ContainerView: UIView {
         addSubview(temperatureLabel)
         addSubview(complexStackView)
         
+        let conditionsImageTrailingConstraint = conditionsImage.trailingAnchor.constraint(equalTo: layoutMarginsGuide.trailingAnchor)
+        conditionsImageTrailingConstraint.priority = .defaultLow
+        
         //добавить directionalLayoutMargins = NSDirectionalEdgeInsets(top: 8.0, leading: 8.0, bottom: 8.0, trailing: 8.0) внутри containerView
         
         NSLayoutConstraint.activate([
@@ -215,7 +229,7 @@ class ContainerView: UIView {
             locationLabel.trailingAnchor.constraint(equalTo: dateLabel.leadingAnchor),
             locationLabel.widthAnchor.constraint(equalTo: dateLabel.widthAnchor, multiplier: 1.5),
             
-            dateLabel.topAnchor.constraint(equalTo: layoutMarginsGuide.topAnchor),
+            dateLabel.bottomAnchor.constraint(equalTo: locationLabel.bottomAnchor),
             dateLabel.trailingAnchor.constraint(equalTo: layoutMarginsGuide.trailingAnchor),
             
             conditionsImage.topAnchor.constraint(equalTo: locationLabel.bottomAnchor),
@@ -224,7 +238,7 @@ class ContainerView: UIView {
             conditionsImage.trailingAnchor.constraint(equalTo: temperatureLabel.leadingAnchor),
             
             conditionsLabel.leadingAnchor.constraint(equalTo: layoutMarginsGuide.leadingAnchor),
-            conditionsLabel.trailingAnchor.constraint(equalTo: temperatureLabel.leadingAnchor),
+            conditionsLabel.trailingAnchor.constraint(equalTo: conditionsImage.trailingAnchor),
             
             temperatureLabel.topAnchor.constraint(equalTo: locationLabel.bottomAnchor),
             temperatureLabel.trailingAnchor.constraint(equalTo: layoutMarginsGuide.trailingAnchor),
@@ -232,7 +246,9 @@ class ContainerView: UIView {
             complexStackView.topAnchor.constraint(equalTo: conditionsLabel.bottomAnchor),
             complexStackView.leadingAnchor.constraint(equalTo: layoutMarginsGuide.leadingAnchor),
             complexStackView.bottomAnchor.constraint(equalTo: layoutMarginsGuide.bottomAnchor),
-            complexStackView.trailingAnchor.constraint(equalTo: layoutMarginsGuide.trailingAnchor)
+            complexStackView.trailingAnchor.constraint(equalTo: layoutMarginsGuide.trailingAnchor),
+            
+            conditionsImageTrailingConstraint
         ])
     }
 }
