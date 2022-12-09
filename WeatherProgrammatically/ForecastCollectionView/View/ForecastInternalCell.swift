@@ -9,7 +9,7 @@ import UIKit
 
 class ForecastInternalCell: UICollectionViewCell {
     
-    private let timeLabel: UILabel = {
+   let timeLabel: UILabel = {
         let label = UILabel()
         label.text = "15:30"
         label.font = UIFont.preferredFont(forTextStyle: .body)
@@ -21,7 +21,7 @@ class ForecastInternalCell: UICollectionViewCell {
         return label
     }()
     
-    private let imageView: UIImageView = {
+    let imageView: UIImageView = {
         let view = UIImageView()
         view.image = UIImage(systemName: "drop")
         view.contentMode = .scaleAspectFit
@@ -30,7 +30,7 @@ class ForecastInternalCell: UICollectionViewCell {
         return view
     }()
     
-    private let temperatureLabel: UILabel = {
+    let temperatureLabel: UILabel = {
         let label = UILabel()
         label.text = "15º"
         label.font = UIFont.preferredFont(forTextStyle: .body)

@@ -9,7 +9,7 @@ import UIKit
 
 class ForecastCollectionViewCell: UICollectionViewCell, UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     
-    private let dayLabel: UILabel = {
+    let dayLabel: UILabel = {
         let label = UILabel()
         label.text = "Sunday"
         label.font = UIFont.preferredFont(forTextStyle: .body)
@@ -31,6 +31,8 @@ class ForecastCollectionViewCell: UICollectionViewCell, UICollectionViewDelegate
         view.backgroundColor = UIColor(red: 1, green: 1, blue: 1, alpha: 0)
         return view
     }()
+    
+    var dailyForecast: [DayForecast] = []
    
     override init(frame: CGRect) {
         super.init(frame: .zero)
@@ -62,7 +64,7 @@ class ForecastCollectionViewCell: UICollectionViewCell, UICollectionViewDelegate
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 6
+        return dailyForecast.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -71,10 +73,18 @@ class ForecastCollectionViewCell: UICollectionViewCell, UICollectionViewDelegate
         cell.layer.borderWidth = 2
         cell.layer.borderColor = UIColor(red: 1, green: 1, blue: 1, alpha: 0.3).cgColor
         cell.layer.cornerRadius = 15
+        let data = dailyForecast[indexPath.item]
+        cell.temperatureLabel.text = data.temp.kelvinToCeliusConverter() + "º"
+        cell.timeLabel.text = data.time.correctTime()
+        cell.imageView.loadImageFromURL(url: "https://openweathermap.org/img/wn/\(data.icon)@2x.png")
         return cell
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         return CGSize(width: collectionView.frame.width/3, height: collectionView.frame.height-20)
+    }
+    
+    func configure(with item: ForecastTemperature) {
+        dailyForecast = item.hourlyForecast ?? []
     }
 }

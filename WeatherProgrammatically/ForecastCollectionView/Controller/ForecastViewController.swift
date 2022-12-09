@@ -19,6 +19,9 @@ class ForecastViewController: UIViewController, UICollectionViewDelegate, UIColl
         view.register(ForecastCollectionViewCell.self, forCellWithReuseIdentifier: "Cell")
         return view
     }()
+    
+    let networkManager = NetworkManager()
+    var forecastData = [ForecastTemperature]()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -28,6 +31,16 @@ class ForecastViewController: UIViewController, UICollectionViewDelegate, UIColl
         collectionView.register(ForecastCollectionViewCell.self, forCellWithReuseIdentifier: "Cell")
         collectionView.delegate = self
         collectionView.dataSource = self
+        
+        let city = UserDefaults.standard.string(forKey: "SelectedCity") ?? ""
+        DispatchQueue.global().async {
+            self.networkManager.fetchNextFiveWeatherForecast(city: city) { (forecast) in
+                self.forecastData = forecast
+                DispatchQueue.main.async {
+                    self.collectionView.reloadData()
+                }
+            }
+        }
     }
     
     private func setupView() {
@@ -42,7 +55,7 @@ class ForecastViewController: UIViewController, UICollectionViewDelegate, UIColl
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 6
+        return forecastData.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -51,10 +64,18 @@ class ForecastViewController: UIViewController, UICollectionViewDelegate, UIColl
         cell.layer.borderWidth = 2
         cell.layer.borderColor = UIColor(red: 1, green: 1, blue: 1, alpha: 0.3).cgColor
         cell.layer.cornerRadius = 15
+        let data = forecastData[indexPath.item]
+        cell.dayLabel.text = data.weekDay
+        cell.configure(with: data)
         return cell
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         return CGSize(width: collectionView.frame.width-20, height: collectionView.frame.height/4)
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        forecastData = []
     }
 }
